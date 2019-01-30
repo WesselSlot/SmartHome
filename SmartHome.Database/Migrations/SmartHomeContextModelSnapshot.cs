@@ -2,30 +2,35 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartHome.Database.Contexts;
 
 namespace SmartHome.Database.Migrations
 {
-    [DbContext(typeof(DevicesContext))]
-    partial class DevicesContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(SmartHomeContext))]
+    partial class SmartHomeContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028");
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("SmartHome.Database.Models.Devices", b =>
+            modelBuilder.Entity("SmartHome.Database.Models.Light", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
 
+                    b.Property<bool>("Status");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Devices");
+                    b.ToTable("Light");
                 });
 #pragma warning restore 612, 618
         }
